@@ -1,0 +1,55 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeservice
+  namespace: ingress-basic
+spec:
+  type: ClusterIP
+  selector:
+    app: nodeapp
+  ports:
+  - port: 5000
+    targetPort: 5000
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ingress-basic
+  name: node-mysql
+  labels:
+    app: nodeapp
+spec:
+  selector:
+    matchLabels:
+      app: nodeapp
+
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+
+    spec:
+      containers:
+      - image: dejitoye/react-api:latest
+        name: node-container
+        env:
+        - name: MYSQL_HOST
+          value: mysql-kb
+        - name: MYSQL_USER
+          value: admin
+        - name: MYSQL_PWD
+          value: Police123
+        - name: MYSQL_DB
+          value: db
+        - name: PORT
+          value: "5000"
+        - name: FRONTEND_URL
+          value: "https://todo.toyehouse.org"
+        ports:
+        - containerPort: 5000
+
