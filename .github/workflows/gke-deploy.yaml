@@ -3,13 +3,15 @@ name: Deploy GKE
 on:
   push:
     branches:
-    - 'dev'
+      - 'dev'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
+    environment:
+      name: dev
 
+    steps:
     - name: code checkout
       uses: actions/checkout@v2
 
