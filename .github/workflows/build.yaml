@@ -1,29 +1,18 @@
-name: Deploy to GKE
-
-on:
+name: Build code, run unit test, run SAST, SCA, DAST security scans for NodeJs App
+on: 
   push:
     branches:
-    - 'main'
+      - 'dev'
 
 jobs:
-  deploy:
+  security:
     runs-on: ubuntu-latest
+    needs: build
+    name: Run the SCA scan on the source code
     steps:
-
-    - name: code checkout
-      uses: actions/checkout@v2
-
-    - name: install the gcloud cli
-      uses: google-github-actions/setup-gcloud@v0
-      with:
-        project_id: ${{ secrets.GOOGLE_PROJECT }}
-        service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-        export_default_credentials: true
-
-    - name: build and push the docker image
-      env:
-        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
-      run: |
-        gcloud auth configure-docker us-central1-docker.pkg.dev
-        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/test:v4 .
-        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/test:v4
+      - uses: actions/checkout@master
+      - name: RunSnyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
