@@ -2,9 +2,7 @@
 name: Test
 
 on:
-  push:
-    paths:
-      - issues.md
+  workflow_dispatch:
 
 jobs:
   create_issue:
