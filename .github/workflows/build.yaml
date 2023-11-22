@@ -1,28 +1,20 @@
-name: Build code
-on: 
-  workflow_dispatch:
-  # push:
-  #   branches:
-  #     - 'dev'
+---
+name: Test
+
+on:
+  push:
+    paths:
+      - issues.md
 
 jobs:
-  build:
+  create_issue:
+    name: Create issue
+    timeout-minutes: 5
     runs-on: ubuntu-latest
-    name: Run the SCA scan on the source code
-    steps:
-      - uses: actions/checkout@master
-
-      - name: RunSnyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        continue-on-error: true
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      
-      - name: Create an issue
-        uses: JasonEtco/create-an-issue@v2.6.0
+    steps:      
+      - uses: actions/checkout@v2.1.0
+      - uses: JasonEtco/create-an-issue@v2.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ENVIRONMENT: Dev
-          RUNNUMBER: ${{ github.run_number  }}
-        with:         
-          filename: .github/deployment-approval.md
+        with:
+          filename: .github/issue.md

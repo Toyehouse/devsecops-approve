@@ -1,0 +1,28 @@
+name: Build code
+on: 
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - 'dev'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Run the SCA scan on the source code
+    steps:
+      - uses: actions/checkout@master
+
+      - name: RunSnyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Create an issue
+        uses: JasonEtco/create-an-issue@v2.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ENVIRONMENT: Dev
+          RUNNUMBER: ${{ github.run_number  }}
+        with:         
+          filename: .github/deployment-approval.md
