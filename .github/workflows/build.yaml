@@ -6,11 +6,12 @@ on:
   #     - 'dev'
 
 jobs:
-  security:
+  build:
     runs-on: ubuntu-latest
     name: Run the SCA scan on the source code
     steps:
       - uses: actions/checkout@master
+
       - name: RunSnyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -21,7 +22,7 @@ jobs:
         uses: JasonEtco/create-an-issue@v2.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # ENVIRONMENT: dev
+          ENVIRONMENT: Dev
           RUNNUMBER: ${{ github.run_number  }}
         with:         
           filename: .github/deployment-approval.md
