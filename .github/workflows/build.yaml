@@ -1,4 +1,4 @@
-name: Build code, run unit test, run SAST, SCA, DAST security scans for NodeJs App
+name: Build code
 on: 
   workflow_dispatch:
   # push:
@@ -21,7 +21,7 @@ jobs:
         uses: JasonEtco/create-an-issue@v2.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ENVIRONMENT: Dev
+          ENVIRONMENT: dev
           RUNNUMBER: ${{ github.run_number  }}
         with:         
           filename: .github/deployment-approval.md
