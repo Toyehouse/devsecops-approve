@@ -16,7 +16,7 @@ jobs:
       - name: RunSnyk to Opensource Test for vulnerabilities
         uses: snyk/actions/node@master
         with:
-          args: open source test 
+          command: snyk test 
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
       - name: RunSnyk Code Test
         uses: snyk/actions/node@master
         with:
-          args: code test 
+          command: snyk code test 
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
