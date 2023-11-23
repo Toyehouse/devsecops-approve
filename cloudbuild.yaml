@@ -20,14 +20,15 @@ steps:
   id: Snyk Open Source Test 
   entrypoint: bash
 
-# - name: snyk/snyk-cli:npm
-#   args:
-#     - '-c'
-#     - |-
-#       snyk config set api=${_SNYK_TOKEN}
-#       snyk Code test --severity-threshold=medium -d
-#   id: Snyk Code Test
-#   entrypoint: bash  
+- name: snyk/snyk-cli:npm
+  args:
+    - '-c'
+    - |-
+      snyk config set api=${_SNYK_TOKEN}
+      snyk Code test --severity-threshold=medium -d
+      continue-on-error: true
+  id: Snyk Code Test
+  entrypoint: bash  
 
 # - name: snyk/snyk-cli:npm
 #   args:
