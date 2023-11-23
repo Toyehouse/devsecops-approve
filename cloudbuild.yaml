@@ -15,8 +15,7 @@ steps:
     - '-c'
     - |-
       snyk config set api=${_SNYK_TOKEN}
-      snyk test --severity-threshold=medium    
-      continue-on-error: true
+      snyk test --severity-threshold=medium || true 
   id: Snyk Open Source Test 
   entrypoint: bash
 
@@ -25,8 +24,7 @@ steps:
     - '-c'
     - |-
       snyk config set api=${_SNYK_TOKEN}
-      snyk Code test --severity-threshold=medium -d
-      continue-on-error: true
+      snyk Code test --severity-threshold=medium || true
   id: Snyk Code Test
   entrypoint: bash  
 
