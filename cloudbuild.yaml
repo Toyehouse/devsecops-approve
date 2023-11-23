@@ -26,7 +26,16 @@ steps:
       snyk config set api=${_SNYK_TOKEN}
       snyk Code test --severity-threshold=medium || true
   id: Snyk Code Test
-  entrypoint: bash  
+  entrypoint: bash 
+
+- name: snyk/snyk-cli:npm
+  args:
+    - '-c'
+    - |-
+      snyk config set api=${_SNYK_TOKEN}
+      snyk monitor --severity-threshold=medium || true
+  id: Snyk Monitor
+  entrypoint: bash 
 
 - name: 'gcr.io/cloud-builders/docker'
   id: Push
