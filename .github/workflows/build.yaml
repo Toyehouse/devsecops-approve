@@ -16,7 +16,7 @@ jobs:
       - name: RunSnyk to check for vulnerabilities
         uses: snyk/actions/node@master
         with:
-          args: open source test --severity-threshold=medium  --all-projects -d
+          args: open source test --severity-threshold=medium
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
