@@ -13,14 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: RunSnyk to check for vulnerabilities
+      - name: RunSnyk to Opensource Test for vulnerabilities
         uses: snyk/actions/node@master
         with:
-          args: open source test --severity-threshold=medium
+          args: open source test 
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      
+
+      - name: RunSnyk Code Test
+        uses: snyk/actions/node@master
+        with:
+          args: code test 
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       
   deploy:
     runs-on: ubuntu-latest
