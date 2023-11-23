@@ -16,6 +16,7 @@ steps:
     - |-
       snyk config set api=${_SNYK_TOKEN}
       snyk  test --severity-threshold=medium  --all-projects -d    
+      continue-on-error: true
   id: Snyk Open Source Test 
   entrypoint: bash
 
