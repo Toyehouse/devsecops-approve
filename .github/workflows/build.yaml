@@ -59,8 +59,8 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }}
       run: |
         gcloud auth configure-docker us-central1-docker.pkg.dev
-        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/dev:$SHORT_SHA .
-        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/dev:$SHORT_SHA
+        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/dev:v5 .
+        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/kube/dev:v5
      
     - name: deploy to gke
       env:
