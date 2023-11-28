@@ -47,7 +47,7 @@ steps:
   id: GKE Deploy
   args:
   - run
-  - --filename=k8s/all.yaml
+  - --filename=gke-prod.yaml
   - --image=us-central1-docker.pkg.dev/possible-haven-397802/kube/prod:v1
   - --location=us-central1
   - --cluster=gke-cicd-prod
