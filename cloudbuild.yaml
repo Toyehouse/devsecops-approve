@@ -5,7 +5,7 @@ steps:
   args:
   - 'build'
   - '-t'
-  - 'us-central1-docker.pkg.dev/possible-haven-397802/kube/test:$SHORT_SHA'
+  - 'us-central1-docker.pkg.dev/possible-haven-397802/kube/prod:v1'
   - '.'
 
 
@@ -41,13 +41,13 @@ steps:
   id: Push
   args:
   - 'push'
-  - 'us-central1-docker.pkg.dev/possible-haven-397802/kube/test:$SHORT_SHA'
+  - 'us-central1-docker.pkg.dev/possible-haven-397802/kube/prod:v1'
 
 - name: "gcr.io/cloud-builders/gke-deploy"
   id: GKE Deploy
   args:
   - run
   - --filename=k8s/all.yaml
-  - --image=us-central1-docker.pkg.dev/possible-haven-397802/kube/test:$SHORT_SHA
+  - --image=us-central1-docker.pkg.dev/possible-haven-397802/kube/prod:v1
   - --location=us-central1
   - --cluster=gke-cicd-prod

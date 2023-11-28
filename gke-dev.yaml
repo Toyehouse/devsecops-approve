@@ -1,0 +1,44 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeservice
+  namespace: view
+spec:
+  type: ClusterIP
+  selector:
+    app: vite-test
+  ports:
+  - port: 80
+    targetPort: 80
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: view
+  name: vite-test
+  labels:
+    app: vite-test
+spec:
+  selector:
+    matchLabels:
+      app: vite-test
+
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: vite-test
+
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/possible-haven-397802/kube/dev:v1
+        name: vite-test
+        ports:
+        - containerPort: 80
+
+
+
