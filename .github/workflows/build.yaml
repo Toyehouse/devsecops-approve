@@ -21,7 +21,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: RunSnyk Code Test
+      - name: RunSnyk SAST Test
         uses: snyk/actions/node@master
         with:
           command: code test 
