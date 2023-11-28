@@ -9,6 +9,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: dev
     name: Run the SCA scan on the source code
     steps:
       - uses: actions/checkout@master
